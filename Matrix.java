@@ -44,7 +44,7 @@ public class Matrix {
                         column.add(Integer.parseInt(element[0]));
                         if (isFirst) {
 
-                            rowptr.add(Integer.parseInt(element[0]));
+                            rowptr.add(value.size() - 1);
                             isFirst = false;
                         }
                     }
