@@ -18,6 +18,16 @@ public class MatrixMultiplication {
 
             String matrix_line = matrix_reader.readLine();
             String vector_line = vector_reader.readLine();
+
+            while(matrix_line != null && vector_line != null) {
+
+                matrix_line = matrix_reader.readLine();
+                vector_line = vector_reader.readLine();
+
+
+            }
+            matrix_reader.close();
+            vector_reader.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
