@@ -25,18 +25,19 @@ class accumulator{
 class multiplyrow extends Thread{
     Vector v;
     Matrix m;
-    int column;
+    int row;
     int total;
     accumulator a;
 
     public void run(){
+        int row_start = m.rowptr.get(row);
         
     }
 
-    public void multiplyrow(Vector v, Matrix m, int column, accumulator a){
+    public void multiplyrow(Vector v, Matrix m, int row, accumulator a){
         this.v = v;
         this.m = m;
-        this.column = column;
+        this.row = row;
         this.a = a;
     }
 
