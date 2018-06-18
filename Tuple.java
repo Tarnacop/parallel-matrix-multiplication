@@ -1,20 +1,10 @@
-public class Tuple<X, Y> {
+public class Tuple {
 
-    private final X x;
-    private final Y y;
+    public final int x;
+    public final float y;
 
-    public Tuple(X x, Y y) {
+    public Tuple(int x, float y) {
         this.x = x;
         this.y = y;
-    }
-
-    public X GetFirst() {
-
-        return this.x;
-    }
-
-    public Y GetSecond() {
-
-        return this.y;
     }
 }
