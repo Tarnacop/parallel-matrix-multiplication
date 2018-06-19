@@ -3,12 +3,16 @@
 #include <mpi.h>
 
 const size_t NUM_WORKERS = 99;
-const size_t NUM_ATTEMPTS;
+size_t NUM_ATTEMPTS;
 size_t SHARED = 0;
 
+int client(void);
+int server(void);
+
 int main(int argc, char ** argv) {
+    char *ptr = NULL;
     if(argc != 2) NUM_ATTEMPTS = 10000;
-    else NUM_ATTEMPTS = strtoul(argv[1]);
+    else NUM_ATTEMPTS = strtoul(argv[1], ptr, 10);
 
     printf("The expected result of SHARED is: %d\n", NUM_WORKERS * NUM_ATTEMPTS);
 
@@ -30,14 +34,15 @@ int main(int argc, char ** argv) {
 int server(void) {
      for(int i = 0; i < NUM_WORKERS * NUM_ATTEMPTS * 2; i++) {
         // Wait for a client to send a request, then switch on the tag
-        size_t t;
-        MPI_Status status;
-        MPI_Irecv(&result, 1, MPI_UNSIGNED, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        size_t result;
+        MPI_Request s_request;
+        MPI_Irecv(&result, 1, MPI_UNSIGNED, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &s_request);
     
         switch(status.MPI_TAG) {
             case 0: 
                 // Read - so asynchronously send SHARED to the client
-                MPI_Isend(&SHARED, 1, MPI_UNSIGNED, status.MPI_SOURCE, 0, MPI_COMM_WORLD); 
+                MPI_Request r_request;
+                MPI_Isend(&SHARED, 1, MPI_UNSIGNED, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &r_request); 
             case 1:
                 // Write - so write result to SHARED 
                 SHARED = result;
