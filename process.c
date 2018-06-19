@@ -11,8 +11,8 @@ int main(int argc, char **argv) {
     long long totaliterations = 10000000000;
     long long iterations = 10000000;
     total = 0.0;
-    for(int current = 0; current<totaliterations; current+=iterations){
-        printf("total %lld, current, %d, iterations %lld, total %Lf\n",totaliterations,current,iterations,total);
+    for(long long current = 0; current<totaliterations; current+=iterations){
+        printf("total %lld, current, %lld, iterations %lld, total %Lf\n",totaliterations,current,iterations,total);
         total+= calc(totaliterations, current, iterations);
     }
 
