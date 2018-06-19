@@ -8,16 +8,16 @@ int main(int argc, char **argv) {
     long double pi, total;
 
 
-    long totaliterations = 1000;
-    long iterations = 1000;
+    long long totaliterations = 10000000000;
+    long long iterations = 10000000;
     total = 0.0;
     for(int current = 0; current<totaliterations; current+=iterations){
-        printf("total %ld, current, %d, iterations %ld, total %Lf\n",totaliterations,current,iterations,total);
+        printf("total %lld, current, %d, iterations %lld, total %Lf\n",totaliterations,current,iterations,total);
         total+= calc(totaliterations, current, iterations);
     }
 
 
-    printf("\nComputing approximation to pi using %ld iterations\n", totaliterations);
+    printf("\nComputing approximation to pi using %lld iterations\n", totaliterations);
 
     /*for (i=1; i<=iterations; i++) {
         c = ((long double)i - 0.5) / ((long double)iterations);
