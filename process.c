@@ -8,8 +8,8 @@ int main(int argc, char **argv) {
     long double pi, total;
 
 
-    long totaliterations = 1000;
-    long iterations = 100;
+    long long totaliterations = 10000000000;
+    long long iterations = 10000000;
 
     MPI_init(&argc, &argv);
 
@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
         MPI_recv(&CURRENT, 1, MPI_LONG_LONG, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
         if(!status) sprintf(STDERR, "Error on recv\n");
 
-        for(int current = CURRENT; current<totaliterations; current+=iterations){
+        for(long long current = CURRENT; current<totaliterations; current+=iterations){
             printf("total %ld, current, %d, iterations %ld, total %Lf\n",totaliterations,current,iterations,total);
             total+= calc(totaliterations, current, iterations);
         }
