@@ -82,10 +82,7 @@ int client(void) {
         MPI_Status status;
         MPI_Recv(&CURRENT, 1, MPI_LONG_LONG, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 
-        for(long long current = CURRENT; current<ITERATIONS; current+=WORK_PER_WORKER){
-            printf("total %lld, current, %lld, iterations %lld, total %Lf\n",ITERATIONS,current,WORK_PER_WORKER,total);
-            total+= calc(ITERATIONS, current, WORK_PER_WORKER);
-        }
+        total = calc(ITERATIONS, current, WORK_PER_WORKER);
 
         MPI_Ssend(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
