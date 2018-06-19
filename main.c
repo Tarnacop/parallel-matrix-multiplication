@@ -38,7 +38,10 @@ int server(void) {
     for(int i = 1; i <= NUM_WORKERS; i++) {
         MPI_Send(&N, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
         N += WORK_PER_WORKER;
+        printf("workers!\n");
     }
+
+    printf("one worker\n");
 
     for(long long i = 0; i < ITERATIONS; i++) {
         // Listen for a finished calculation
