@@ -14,8 +14,6 @@ int main(int argc, char ** argv) {
     if(argc != 2) NUM_ATTEMPTS = 10000;
     else NUM_ATTEMPTS = strtoul(argv[1], &ptr, 10);
 
-    printf("The expected result of SHARED is: %d\n", NUM_WORKERS * NUM_ATTEMPTS);
-
     MPI_Init(&argc, &argv);
 
     int rank;
@@ -34,6 +32,8 @@ int main(int argc, char ** argv) {
     requests from clients. 
 */
 int server(void) {
+     printf("The expected value of SHARED is %d (%d workers incrementing %d times)\n", NUM_WORKERS*NUM_ATTEMPTS, NUM_WORKERS, NUM_ATTEMPTS);
+ 
      for(int i = 0; i < NUM_WORKERS * NUM_ATTEMPTS * 2; i++) {
         // Wait for a client to send a request, then switch on the tag
         size_t result;
