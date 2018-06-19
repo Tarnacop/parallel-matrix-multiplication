@@ -5,7 +5,7 @@
 
 int server(void);
 int client(void);
-long double calc(int total, int start, int iterations);
+long double calc(long long total,long long start,long long iterations);
     const long long NUM_WORKERS = 99;
     const long long WORK_PER_WORKER = 1000000;
     const long long ITERATIONS = 100000000;
@@ -40,7 +40,7 @@ int server(void) {
         N += WORK_PER_WORKER;
     }
 
-    for(int i = 0; i < ITERATIONS; i++) {
+    for(long long i = 0; i < ITERATIONS; i++) {
         // Listen for a finished calculation
         long double result;
         MPI_Status status;
@@ -93,7 +93,7 @@ int client(void) {
     return 0;
 }
 
-long double calc(int totaliterations, int current, int iterations){
+long double calc(long long totaliterations, long long current, long long iterations){
     long double a,b,c,calc = 0.0;
     for (long i=current; i<current+iterations; i++) {
         c = ((long double)i - 0.5) / ((long double)totaliterations);
