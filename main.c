@@ -17,15 +17,16 @@ int main(int argc, char ** argv){
     MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 
     if(rank == 0){
+        printf("Hey I'm a server :D\n");
         server();
     } else {
+        printf("Hey I'm a client :)\n");
         client();
     }
 
     return 0;
 
 }
-
 
 int server(void) {
 
@@ -38,12 +39,14 @@ int server(void) {
     for(int i = 1; i <= NUM_WORKERS; i++) {
         MPI_Send(&N, 1, MPI_LONG_LONG, i, 0, MPI_COMM_WORLD);
         N += WORK_PER_WORKER;
-        printf("workers!\n");
+        printf("end of worker loop\n");
     }
 
-    printf("one worker\n");
+    printf("finished allocating worker jobs\n");
 
     for(long long i = 0; i < ITERATIONS; i++) {
+        printf("entered waiting loop (server)\n");
+
         // Listen for a finished calculation
         long double result;
         MPI_Status status;
@@ -70,18 +73,15 @@ int server(void) {
 int client(void) {
     long double total;
 
-
-    /*for(long long current = 0; current<totaliterations; current+=iterations){
-        printf("total %lld, current, %lld, iterations %lld, total %Lf\n",totaliterations,current,iterations,total);
-        total+= calc(totaliterations, current, iterations);
-    }*/
-
-
     while(1) {
         total = 0.0;
         long long CURRENT;
         MPI_Status status;
         MPI_Recv(&CURRENT, 1, MPI_LONG_LONG, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+
+        int count;
+        MPI_Get_count(&status, MPI_LONG_LONG, &count);
+        printf("[client recv] source: %d, count: %d\n", status.MPI_source, count);
 
         total = calc(ITERATIONS, CURRENT, WORK_PER_WORKER);
 
