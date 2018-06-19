@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
             total+= calc(totaliterations, current, iterations);
         }
 
-        MPI_Send(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        MPI_Ssend(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
 
     return 0;
