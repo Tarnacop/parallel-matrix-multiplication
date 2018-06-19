@@ -48,8 +48,6 @@ int server(void) {
 
         DONE += WORK_PER_WORKER;
 
-        printf("There are %lld workers still going. %lld have finished!", N-DONE, DONE);  
-
         PI += result;
         
         // Tell the worker where to start from next
