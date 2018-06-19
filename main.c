@@ -7,8 +7,8 @@ int server(void);
 int client(void);
 long double calc(long long total,long long start,long long iterations);
     const long long NUM_WORKERS = 99;
-    const long long WORK_PER_WORKER = 1000;
-    const long long ITERATIONS = 100000;
+    const long long WORK_PER_WORKER = 10;
+    const long long ITERATIONS = 990;
 
 int main(int argc, char ** argv){
     MPI_Init(&argc, &argv);

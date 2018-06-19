@@ -3,7 +3,7 @@
 #include <mpi.h>
 #include <math.h>
 
-long double calc(int total, int start, int iterations);
+long double calc(long long total, long long start, long long iterations);
 int main(int argc, char **argv) {
     long double total;
 
@@ -35,9 +35,9 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-long double calc(int totaliterations, int current, int iterations){
+long double calc(long long totaliterations, long long current, long long iterations){
     long double a,b,c,calc = 0.0;
-    for (long i=current; i<current+iterations; i++) {
+    for (long long i=current; i<current+iterations; i++) {
         c = ((long double)i - 0.5) / ((long double)totaliterations);
         b = pow(c, 2.0);
         a = 1.0 + b;
