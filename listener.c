@@ -4,8 +4,8 @@
 
 int main(int argc, char * argv) {
     const int NUM_WORKERS = 99;
-    const int WORK_PER_WORKER = 100;
-    const int ITERATIONS = 1000;
+    const int WORK_PER_WORKER = 1000000;
+    const int ITERATIONS = 100000000;
 
     long long N = 0;
     long long DONE = 0;
@@ -14,7 +14,7 @@ int main(int argc, char * argv) {
     MPI_Init(&argc, &argv);
  
     // Give the workers their initial work
-    for(int i = 1; i <= NUM_WORKERS + 1; i++) {
+    for(int i = 1; i <= NUM_WORKERS; i++) {
         MPI_Ssend(&N, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
         N += WORK_PER_WORKER
     }
@@ -24,9 +24,6 @@ int main(int argc, char * argv) {
         long double result;
         MPI_Status status;
         MPI_recv(&result, 1, MPI_LONG_DOUBLE, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-        if(status) {
-            sprintf(STDERR, "Error: %d\n", status_);
-        }
 
         DONE += WORK_PER_WORKER;
 
