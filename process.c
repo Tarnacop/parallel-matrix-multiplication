@@ -9,27 +9,24 @@ int main(int argc, char **argv) {
 
 
     long totaliterations = 1000;
-    long iterations = 1000;
-    total = 0.0;
-    for(int current = 0; current<totaliterations; current+=iterations){
-        printf("total %ld, current, %d, iterations %ld, total %Lf\n",totaliterations,current,iterations,total);
-        total+= calc(totaliterations, current, iterations);
+    long iterations = 100;
+
+    MPI_init(&argc, &argv);
+
+    while(1) {
+        total = 0.0;
+        long long CURRENT;
+        MPI_Status status;
+        MPI_recv(&CURRENT, 1, MPI_LONG_LONG, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        if(!status) sprintf(STDERR, "Error on recv\n");
+
+        for(int current = CURRENT; current<totaliterations; current+=iterations){
+            printf("total %ld, current, %d, iterations %ld, total %Lf\n",totaliterations,current,iterations,total);
+            total+= calc(totaliterations, current, iterations);
+        }
+
+        MPI_send(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
-
-
-    printf("\nComputing approximation to pi using %ld iterations\n", totaliterations);
-
-    /*for (i=1; i<=iterations; i++) {
-        c = ((long double)i - 0.5) / ((long double)iterations);
-        b = pow(c, 2.0);
-        a = 1.0 + b;
-        calc = 1.0/a;
-        total += calc;
-    }*/
-    
-    pi = total * 4.0 / ((long double)totaliterations);
-
-    printf("\nPi has been calculated to be: %.100Lf\n", pi);
 
     return 0;
 }

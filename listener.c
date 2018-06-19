@@ -4,11 +4,11 @@
 
 int main(int argc, char * argv) {
     const int NUM_WORKERS = 99;
-    const int WORK_PER_WORKER = 10;
+    const int WORK_PER_WORKER = 100;
     const int ITERATIONS = 1000;
 
-    int N = 0;
-    int DONE = 0;
+    long long N = 0;
+    long long DONE = 0;
     long double PI = 0.0;
 
     MPI_Init(&argc, &argv);
@@ -35,7 +35,7 @@ int main(int argc, char * argv) {
         PI += result;
         
         // Tell the worker where to start from next
-        MPI_Ssend(&N, 1, MPI_INT, status.MPI_SOURCE, 0, MPI_COMM_WORLD); 
+        MPI_Ssend(&N, 1, MPI_LONG_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD); 
         N += WORK_PER_WORKER;
         
     }
