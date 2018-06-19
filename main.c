@@ -96,5 +96,6 @@ long double calc(long long totaliterations, long long current, long long iterati
         a = 1.0 + b;
         calc += 1.0/a;
     }
+    printf("calc: %Lf", calc);
     return calc;
 }
