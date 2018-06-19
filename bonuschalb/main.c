@@ -24,6 +24,8 @@ int main(int argc, char ** argv) {
     if(rank == 0) server();
     else client();
 
+    MPI_Finalize();
+
     return 0;
 }
 
@@ -50,6 +52,7 @@ int server(void) {
     }
   
     printf("The final count was %d\n", SHARED);
+
     return 0;
 }
 
