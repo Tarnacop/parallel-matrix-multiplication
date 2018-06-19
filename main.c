@@ -36,7 +36,7 @@ int server(void) {
  
     // Give the workers their initial work
     for(int i = 1; i <= NUM_WORKERS; i++) {
-        MPI_Send(&N, 1, MPI_INT, i, 0, MPI_COMM_WORLD);
+        MPI_Send(&N, 1, MPI_LONG_LONG, i, 0, MPI_COMM_WORLD);
         N += WORK_PER_WORKER;
         printf("workers!\n");
     }
