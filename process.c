@@ -11,6 +11,9 @@ int main(int argc, char *argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &size);
 
     printf("Hello World! I am %d of %d\n", rank, size);
+    for(int i = 0; i<1000; i++){
+        malloc(1000)
+    }
 
     MPI_Finalize();
 
