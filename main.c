@@ -60,7 +60,7 @@ int server(void) {
         
     }
 
-    printf("PI is: %100.Lf\n", 4*PI/(double)N);
+    printf("PI is: %.100Lf\n", 4*PI/(double)N);
  
     MPI_Finalize();
 
