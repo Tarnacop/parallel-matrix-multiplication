@@ -51,8 +51,9 @@ int server(void) {
         PI += result;
         
         // Tell the worker where to start from next
-        MPI_Ssend(&N, 1, MPI_LONG_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD); 
+        MPI_Send(&N, 1, MPI_LONG_LONG, status.MPI_SOURCE, 0, MPI_COMM_WORLD); 
         N += WORK_PER_WORKER;
+        printf("poo\n");
         
     }
 
@@ -67,7 +68,6 @@ int client(void) {
     long double total;
 
 
-    total = 0.0;
     /*for(long long current = 0; current<totaliterations; current+=iterations){
         printf("total %lld, current, %lld, iterations %lld, total %Lf\n",totaliterations,current,iterations,total);
         total+= calc(totaliterations, current, iterations);
@@ -82,7 +82,7 @@ int client(void) {
 
         total = calc(ITERATIONS, CURRENT, WORK_PER_WORKER);
 
-        MPI_Ssend(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
+        MPI_Send(&total, 1, MPI_LONG_DOUBLE, 0, 0, MPI_COMM_WORLD);
     }
 
     return 0;
