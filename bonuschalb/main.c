@@ -39,11 +39,11 @@ int server(void) {
         size_t result;
         MPI_Status status;
         MPI_Recv(&result, 1, MPI_UNSIGNED, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
-    
+   
+        MPI_Request request; 
         switch(status.MPI_TAG) {
             case 0: 
                 // Read - so asynchronously send SHARED to the client
-                MPI_Request request;
                 MPI_Isend(&SHARED, 1, MPI_UNSIGNED, status.MPI_SOURCE, 0, MPI_COMM_WORLD, &request); 
             case 1:
                 // Write - so write result to SHARED 
@@ -52,6 +52,9 @@ int server(void) {
     }
   
     printf("The final count was %d\n", SHARED);
+    printf("================================================================================================\n");
+    printf("================================================================================================\n");
+
 
     return 0;
 }

@@ -1,0 +1,16 @@
++--------------------------------------------------------------------------+
+| Job on the BlueBEAR cluster:
+| Starting at Tue Jun 19 18:32:21 2018 for txg523(273284)
+| Identity jobid 1387310 jobname run_race_condition.sh
+| Running against project thompssj-chal18-03 and in partition broadwell-bearchal03
+| Requested cpu=100,mem=500000M,node=5 - 01:00:00 walltime
+| Assigned to nodes bear-pg0210u20a,bear-pg0210u20b,bear-pg0210u27a,bear-pg0210u27b,bear-pg0210u28a
+| Command /rds/projects/2018/thompssj-bear-chal18-03/allchals/bonuschalb/run_race_condition.sh
+| WorkDir /rds/projects/2018/thompssj-bear-chal18-03/allchals/bonuschalb
++--------------------------------------------------------------------------+
++--------------------------------------------------------------------------+
+| Finished at Tue Jun 19 18:44:28 2018 for txg523(273284) on the BlueBEAR Cluster
+| Required (03:14:32 cputime, 1616640K memory used) - 00:12:07 walltime
+| JobState COMPLETING - Reason None
+| Exitcode 0:0
++--------------------------------------------------------------------------+

@@ -1,0 +1,22 @@
+# BEAR WITH US - BONUS CHALLENGE 3 SUBMISSION
+    This demonstration shows a race condition that arises when multiple clients try to asynchronously increment a shared variable
+held by a single central server.
+
+## Overview
+    Utilising all 100 cores available on the 5 clusters, there is 1 central server, and 99 clients. All of the intercommunication is handled through MPI, and in order to induce a race condition, the server handles requests from the clients asynchronously. The server holds a shared integer (SHARED), and listens for clients who either submit a READ (0) or WRITE (1) request, which is achieved using the MPI_TAG of the messages. 
+    Additionally, the testing performed demonstrates the scalability/speed of the implementation, as upwards of 1,000,000,000 MPI messages per single run isn't rare, and each of those runs is completed in around 2 minutes. 
+
+### READ (0)
+    On a READ request, the server asynchronously returns the SHARED variable to the client that requested it. 
+
+### WRITE (1)
+    On a WRITE request, the server allows the client to asynchronously update the SHARED variable. 
+
+### Client-side
+    Each client will attempt to increment the SHARED value a given number of times (NUM_ATTEMPTS). Hence, the expected value is NUM_ATTEMPTS * NUM_CLIENTS. 
+
+## run_race_condition.sh
+    This script is used to execute a batch of 5 runs of the demonstration (to show the proportion achieved etc.) - currently a random input for NUM_ATTEMPTS is chosen (between 1 and 1000000) - this is the number of times each client will attempt to increment the shared variable. If no value is provided, a default of 10000 is used.
+
+## Test Output
+    Five tests of the system were conducted, and the results of each are stored in the data/batchN/ directory (where N is the 0-indexed number of the corresponding batch). Each test consists of five runs of the demonstration, with each using the same random number for NUM_ATTEMPTS to show that the race condition is achieved for each (or at least for 2 of the 5 runs). Moreover, each batchN/ directory contains a short report (REPORT.txt) stating in what percentage of the runs the race condition was met. 
