@@ -51,4 +51,29 @@ public class Matrix {
                 }
             }
     }
+
+    public float Multiply(Vector v) {
+
+        Accumulator a = new Accumulator();
+        for(int i = 0; i < this.rowptr.size(); i++) {
+
+            Thread t;
+            if (i == this.rowptr.size() - 1) {
+
+                t = new Thread(new Multiplyrow(v, this, i, a));
+            } else {
+
+                t = new Thread(new Multiplyrow(v, this, i, i + 1, a));
+            }
+            t.run();
+            try {
+                t.join();
+            } catch(Exception ex) {
+
+                ex.printStackTrace();
+            }
+        }
+
+        return a.total;
+    }
 }

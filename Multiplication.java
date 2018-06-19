@@ -1,43 +1,47 @@
-class Methods{
-    int multiplysum(Vector v, Matrix m){
-        int i;
-        Accumulator a = new Accumulator();
-        for(i = 0; i < m.rowptr.size(); i++){
-            Thread t = new Thread(new Multiplyrow(v,m,i,a));
-            t.run();
-        }
-        while(a.count < i){
-            //not done
-        }
-        return a.total;
-    }
-}
+class Accumulator {
+        float total;
 
-class Accumulator{
-    int total = 0;
-    int count = 0;
-    public synchronized void add(int i){
-        this.total+=i;
-        this.count++;
-    }
+        public Accumulator() {
+
+            total = 0;
+        }
+
+        public synchronized void add(float number) {
+            this.total += number; }
 }
 
 class Multiplyrow implements Runnable {
-    Vector v;
-    Matrix m;
-    int row;
-    int total;
-    Accumulator a;
+        Vector v;
+        Matrix m;
+        int rowStart;
+        int rowEnd;
+        float total;
+        Accumulator a;
 
-    public Multiplyrow(Vector v, Matrix m, int row, Accumulator a){
-        this.v = v;
-        this.m = m;
-        this.row = row;
-        this.a = a;
+        public Multiplyrow(Vector v, Matrix m, int rowStart, Accumulator a) {
+            this.v = v;
+            this.m = m;
+            this.rowStart = rowStart;
+            this.rowEnd = m.rowptr.size() - 1;
+            this.total = 0;
+            this.a = a;
+        }
+
+        public Multiplyrow(Vector v, Matrix m, int rowStart, int rowEnd, Accumulator a) {
+            this.v = v;
+            this.m = m;
+            this.rowStart = rowStart;
+            this.rowEnd = rowEnd;
+            this.total = 0;
+            this.a = a;
+        }
+
+        public void run() {
+
+            for (int i = m.rowptr.get(rowStart); i < m.rowptr.get(rowEnd); i++) {
+
+                total += m.value.get(i) * v.value.get(m.column.get(i));
+            }
+            a.add(total);
+        }
     }
-
-    public void run(){
-        int row_start = m.rowptr.get(row);
-    }
-}
-
