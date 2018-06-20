@@ -4,6 +4,7 @@
 #include <pthread.h>
 
 const size_t NUM_WORKERS = 99;
+size_t SERVER_FINISHED = 0;
 
 int client(void);
 int server(void);
@@ -28,7 +29,6 @@ int main(int argc, char ** argv) {
     data structure.
 */
 int server(void) {
-    size_t SERVER_FINISHED = 0;
     size_t WORKERS_ONGOING = NUM_WORKERS;
  
     // TODO: work out how to do ongoing workers?
@@ -92,15 +92,15 @@ int handleRequest(MPI_Status status) {
    The client sends requests to the server
 */ 
 int client(void) {
-    size_t WORK_TO_BE_DONE   
+    size_t WORK_FINISHED = 0; 
  
-    while(WORK_TO_BE_DONE) {
+    while(!WORK_FINISHED) {
         // First, poll the server to check we still have work!
-        MPI_Send(&WORK_TO_BE_DONE, 1, MPI_UNSIGNED, 0, 0, MPI_COMM_WORLD);
+        MPI_Send(&WORK_FINISHED, 1, MPI_UNSIGNED, 0, 0, MPI_COMM_WORLD);
         
         // Then get the result from the server, and update WORK_TO_BE_DONE
         MPI_Status status;
-        MPI_Recv(&WORK_TO_BE_DONE, 1, MPI_UNSIGNED, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        MPI_Recv(&WORK_FINISHED, 1, MPI_UNSIGNED, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 
         // TODO: Do any required work
     }
