@@ -7,6 +7,7 @@ const size_t NUM_WORKERS = 99;
 
 int client(void);
 int server(void);
+int handleRequest(MPIStatus);
 
 int main(int argc, char ** argv) {
     MPI_Init(&argc, &argv);
@@ -27,8 +28,8 @@ int main(int argc, char ** argv) {
     data structure.
 */
 int server(void) {
-size_t SERVER_FINISHED = 0;
-size_t WORKERS_ONGOING = TOTAL_WORKERS;
+    size_t SERVER_FINISHED = 0;
+    size_t WORKERS_ONGOING = NUM_WORKERS;
  
     // TODO: work out how to do ongoing workers?
     while(!SERVER_FINISHED) { 
@@ -45,8 +46,7 @@ size_t WORKERS_ONGOING = TOTAL_WORKERS;
         pthread_create(&client_thread, NULL, handleRequest, &status);
         pthread_join(client_thread, NULL);         
  
-        }     
-    }
+    }     
 
     // Once the server has finished, wait for all 99 clients to poll the server for status
     while(WORKERS_ONGOING > 0) {
