@@ -4,11 +4,11 @@
 #include <pthread.h>
 
 const size_t NUM_WORKERS = 99;
-size_t SERVER_FINISHED = 0;
+size_t SERVER_FINISHED = 1;
 
 int client(void);
 int server(void);
-int handleRequest(MPIStatus);
+int handleRequest(MPI_Status status);
 
 int main(int argc, char ** argv) {
     MPI_Init(&argc, &argv);
